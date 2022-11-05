@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: ipl-dashbpard
+  namespace: ipl-dashboard-ns
+  labels:
+    app: ipl-dashboard
+    tier: esb
+spec:
+  selector:
+    matchLabels:
+      app: ipl-dashboard
+      tier: esb
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ipl-dashboard
+        tier: esb
+        
+    spec:
+      serviceAccountName: minikube-test
+      imagePullSecrets:
+      - name: ipl-dashboard
+      containers:
+      - name: ipl-dashboard
+        image: docker.artifactory.net/ipl-dashboard:1.0.0-1
+        imagePullPolicy: Always
+        env:
+        - name: server.servlet.context-path
+          value: /dashboard
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+          limits:
+            cpu: 300m
+            memory: 768Mi
+        ports:
+        - containerPort: 8080
