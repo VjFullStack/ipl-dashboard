@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    ncp/use-regex: "True"
+  name: ipl-dashboard-ingress
+  namespace: ipl-dashboard-ns
+spec:
+  rules:
+  - host: ipl-dashboard.dev.net
+    http:
+      paths:
+      - backend:
+          service:
+            name: ipl-dashboard-svc
+            port:
+              number: 8091
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - ipl-dashboard.dev.net
+    secretname: test-tls
