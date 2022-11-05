@@ -1,0 +1,7 @@
+FROM docker.artifactory.net/base/jre17:1.0.0
+USER 3003
+EVN APP_HOME /3003
+WORKDIR $APP_HOME
+COPY target/*.-service*.jar $APP_HOME/
+EXPOSE 8091
+ENTRYPOINT java -jar *.jar
