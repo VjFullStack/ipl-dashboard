@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ipl-dashboard-svc
+  namespace: ipl-dashboard-ns
+  labels:
+    app: ipl-dashboard-svc
+    tier: esb
+spec:
+  type: CLusterIP
+  ports:
+  - port: 8091
+    targetPort: 8080
+  selector:
+    app: ipl-dashboard
+    tier: esb
